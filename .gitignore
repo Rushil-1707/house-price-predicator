@@ -1,0 +1,19 @@
+# Trained artifacts (large; regenerate with: python model.py)
+*.pkl
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+venv/
+.venv/
+env/
+
+# Local / secrets
+.env
+*.env.local
+
+# IDE
+.idea/
+.vscode/

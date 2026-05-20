@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>House Price Prediction</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+    }
+
+    .container {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      padding: 40px;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    h1 {
+      text-align: center;
+      color: #1a202c;
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #718096;
+      font-size: 13px;
+      margin-bottom: 30px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #4a5568;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .hint {
+      font-size: 11px;
+      color: #a0aec0;
+      margin-top: -3px;
+    }
+
+    input {
+      padding: 10px 14px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #2d3748;
+      transition: border 0.2s;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #4f46e5;
+    }
+
+    button {
+      margin-top: 24px;
+      width: 100%;
+      padding: 14px;
+      background: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #4338ca;
+    }
+
+    .result {
+      margin-top: 24px;
+      background: #ebf8ff;
+      border: 1.5px solid #bee3f8;
+      border-radius: 10px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .result p {
+      color: #2b6cb0;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .result h2 {
+      color: #1a365d;
+      font-size: 28px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 12px;
+      color: #a0aec0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🏠 House Price Prediction</h1>
+    <p class="subtitle">Powered by Random Forest Regression | California Housing Dataset</p>
+
+    <form action="/predict" method="POST">
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>Median Income</label>
+          <p class="hint">In $10,000s (e.g. 5.0 = $50,000)</p>
+          <input type="number" name="med_inc" step="0.01" placeholder="e.g. 5.0" required />
+        </div>
+
+        <div class="form-group">
+          <label>House Age</label>
+          <p class="hint">In years (e.g. 20)</p>
+          <input type="number" name="house_age" step="0.1" placeholder="e.g. 20" required />
+        </div>
+
+        <div class="form-group">
+          <label>Average Rooms</label>
+          <p class="hint">Per household (e.g. 5.0)</p>
+          <input type="number" name="ave_rooms" step="0.01" placeholder="e.g. 5.0" required />
+        </div>
+
+        <div class="form-group">
+          <label>Average Bedrooms</label>
+          <p class="hint">Per household (e.g. 1.0)</p>
+          <input type="number" name="ave_bedrms" step="0.01" placeholder="e.g. 1.0" required />
+        </div>
+
+        <div class="form-group">
+          <label>Population</label>
+          <p class="hint">Block population (e.g. 1200)</p>
+          <input type="number" name="population" step="1" placeholder="e.g. 1200" required />
+        </div>
+
+        <div class="form-group">
+          <label>Average Occupancy</label>
+          <p class="hint">People per household (e.g. 3.0)</p>
+          <input type="number" name="ave_occup" step="0.01" placeholder="e.g. 3.0" required />
+        </div>
+
+        <div class="form-group">
+          <label>Latitude</label>
+          <p class="hint">Location (e.g. 34.05)</p>
+          <input type="number" name="latitude" step="0.0001" placeholder="e.g. 34.05" required />
+        </div>
+
+        <div class="form-group">
+          <label>Longitude</label>
+          <p class="hint">Location (e.g. -118.24)</p>
+          <input type="number" name="longitude" step="0.0001" placeholder="e.g. -118.24" required />
+        </div>
+
+      </div>
+
+      <button type="submit">Predict Price</button>
+    </form>
+
+    {% if prediction %}
+    <div class="result">
+      <p>Estimated House Price</p>
+      <h2>{{ prediction }}</h2>
+    </div>
+    {% endif %}
+
+    <p class="footer">Built by Rushil Popat | California Housing Dataset | Scikit-learn</p>
+  </div>
+</body>
+</html>
